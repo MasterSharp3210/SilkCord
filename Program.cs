@@ -29,6 +29,7 @@ namespace Silk_Client
                 await Task.Delay(3000);
             }
 
+            Console.Clear();
             Console.WriteLine("Connected");
 
             ApplicationConfiguration.Initialize();

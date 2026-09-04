@@ -1,14 +1,21 @@
 using DiscordRPC;
+using System;
+using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Silk_Client
 {
     public partial class Silk : Form
     {
         private DiscordRpcClient? discordClient;
+        private bool isRpcStarted = false;
 
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern bool AllocConsole();
+
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern bool FreeConsole();
 
@@ -64,6 +71,8 @@ namespace Silk_Client
             }
 
             TitlePanel.MouseDown += TitlePanel_MouseDown;
+
+            ApplyDiscordRPC.Text = "Start";
         }
 
         private void TitlePanel_MouseDown(object sender, MouseEventArgs e)
@@ -79,71 +88,26 @@ namespace Silk_Client
             }
         }
 
-
         private async void Silk_Load(object sender, EventArgs e)
         {
             await Task.Delay(1000);
             FreeConsole();
-
-            string filePath = "config.txt";
-
-            if (!File.Exists(filePath))
-                return;
-
-            foreach (string line in File.ReadAllLines(filePath))
-            {
-                string[] parts = line.Split('=', 2);
-
-                if (parts.Length != 2)
-                    continue;
-
-                string key = parts[0];
-                string value = parts[1];
-
-                switch (key)
-                {
-                    case "Application":
-                        ApplicationTextbox.Text = value;
-                        break;
-
-                    case "Activity":
-                        ActivityComboBox.SelectedItem = value;
-                        break;
-
-                    case "Details":
-                        DetailsTextbox.Text = value;
-                        break;
-
-                    case "State":
-                        StateTextbox.Text = value;
-                        break;
-
-                    case "Large":
-                        LargeTextbox.Text = value;
-                        break;
-
-                    case "LargeText":
-                        LargeTextTextbox.Text = value;
-                        break;
-
-                    case "Small":
-                        SmallTextbox.Text = value;
-                        break;
-
-                    case "SmallText":
-                        SmallTextTextbox.Text = value;
-                        break;
-                }
-            }
         }
 
         private void ApplyDiscordRPC_Click(object sender, EventArgs e)
         {
-            discordClient?.Dispose();
+            if (string.IsNullOrWhiteSpace(ApplicationTextbox.Text))
+            {
+                MessageBox.Show("Please enter a valid Application ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            discordClient = new DiscordRpcClient(ApplicationTextbox.Text);
-
-            discordClient.Initialize();
+            if (discordClient == null || discordClient.ApplicationID != ApplicationTextbox.Text)
+            {
+                discordClient?.Dispose();
+                discordClient = new DiscordRpcClient(ApplicationTextbox.Text);
+                discordClient.Initialize();
+            }
 
             ActivityType activityType;
 
@@ -167,40 +131,143 @@ namespace Silk_Client
             {
                 Details = DetailsTextbox.Text,
                 State = StateTextbox.Text,
-
                 Type = activityType,
-
                 Assets = new Assets()
                 {
                     LargeImageKey = LargeTextbox.Text,
                     LargeImageText = LargeTextTextbox.Text,
-
                     SmallImageKey = SmallTextbox.Text,
                     SmallImageText = SmallTextTextbox.Text
                 }
             });
+
+            if (!isRpcStarted)
+            {
+                isRpcStarted = true;
+                ApplyDiscordRPC.Text = "Update";
+            }
+        }
+
+        private void LoadConfigButton_Click(object sender, EventArgs e)
+        {
+            using OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "CFG files (*.cfg)|*.cfg|All files (*.*)|*.*",
+                Title = "Select a configuration file",
+                RestoreDirectory = true,
+                AutoUpgradeEnabled = false
+            };
+
+            if (openFileDialog.ShowDialog(this) != DialogResult.OK)
+                return;
+
+            try
+            {
+                string[] lines = File.ReadAllLines(openFileDialog.FileName);
+
+                foreach (string line in lines)
+                {
+                    string[] parts = line.Split('=', 2);
+
+                    if (parts.Length != 2)
+                        continue;
+
+                    string key = parts[0].Trim();
+                    string value = parts[1].Trim();
+
+                    switch (key)
+                    {
+                        case "Application":
+                            ApplicationTextbox.Text = value;
+                            break;
+
+                        case "Activity":
+                            ActivityComboBox.SelectedItem = value;
+                            break;
+
+                        case "Details":
+                            DetailsTextbox.Text = value;
+                            break;
+
+                        case "State":
+                            StateTextbox.Text = value;
+                            break;
+
+                        case "Large":
+                            LargeTextbox.Text = value;
+                            break;
+
+                        case "LargeText":
+                            LargeTextTextbox.Text = value;
+                            break;
+
+                        case "Small":
+                            SmallTextbox.Text = value;
+                            break;
+
+                        case "SmallText":
+                            SmallTextTextbox.Text = value;
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Error while loading configuration:\n\n{ex.Message}",
+                    "Load Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
         }
 
         private void SaveSettingButton_Click(object sender, EventArgs e)
         {
-            string filePath = "config.txt";
-
-            File.WriteAllLines(filePath, new[]
+            using SaveFileDialog saveFileDialog = new SaveFileDialog
             {
-                $"Application={ApplicationTextbox.Text}",
-                $"Activity={ActivityComboBox.SelectedItem?.ToString() ?? "Playing"}",
-                $"Details={DetailsTextbox.Text}",
-                $"State={StateTextbox.Text}",
-                $"Large={LargeTextbox.Text}",
-                $"LargeText={LargeTextTextbox.Text}",
-                $"Small={SmallTextbox.Text}",
-                $"SmallText={SmallTextTextbox.Text}"
-            });
+                Filter = "CFG files (*.cfg)|*.cfg|All files (*.*)|*.*",
+                DefaultExt = "cfg",
+                AddExtension = true,
+                Title = "Save Config File",
+                RestoreDirectory = true,
+                AutoUpgradeEnabled = false
+            };
+
+            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                try
+                {
+                    File.WriteAllLines(saveFileDialog.FileName, new[]
+                    {
+                        $"Application={ApplicationTextbox.Text}",
+                        $"Activity={ActivityComboBox.SelectedItem?.ToString() ?? "Playing"}",
+                        $"Details={DetailsTextbox.Text}",
+                        $"State={StateTextbox.Text}",
+                        $"Large={LargeTextbox.Text}",
+                        $"LargeText={LargeTextTextbox.Text}",
+                        $"Small={SmallTextbox.Text}",
+                        $"SmallText={SmallTextTextbox.Text}"
+                    });
+
+                    MessageBox.Show("Config saved successfully!", "Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        $"Error while saving configuration:\n\n{ex.Message}",
+                        "Save Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                }
+            }
         }
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
-            Environment.Exit(0);
+            discordClient?.Dispose();
+            Application.Exit();
         }
 
         private void MinimizeButton_Click(object sender, EventArgs e)

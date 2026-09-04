@@ -52,6 +52,7 @@
             Image2Text = new Label();
             ApplyDiscordRPC = new Button();
             SaveSettingButton = new Button();
+            LoadConfigButton = new Button();
             TitlePanel.SuspendLayout();
             SuspendLayout();
             // 
@@ -310,12 +311,26 @@
             SaveSettingButton.UseVisualStyleBackColor = true;
             SaveSettingButton.Click += SaveSettingButton_Click;
             // 
+            // LoadConfigButton
+            // 
+            LoadConfigButton.FlatStyle = FlatStyle.Flat;
+            LoadConfigButton.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LoadConfigButton.ForeColor = Color.White;
+            LoadConfigButton.Location = new Point(12, 488);
+            LoadConfigButton.Name = "LoadConfigButton";
+            LoadConfigButton.Size = new Size(180, 40);
+            LoadConfigButton.TabIndex = 21;
+            LoadConfigButton.Text = "Load";
+            LoadConfigButton.UseVisualStyleBackColor = true;
+            LoadConfigButton.Click += LoadConfigButton_Click;
+            // 
             // Silk
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(804, 540);
+            Controls.Add(LoadConfigButton);
             Controls.Add(SaveSettingButton);
             Controls.Add(ApplyDiscordRPC);
             Controls.Add(SmallTextTextbox);
@@ -373,5 +388,6 @@
         private Label Image2Text;
         private Button ApplyDiscordRPC;
         private Button SaveSettingButton;
+        private Button LoadConfigButton;
     }
 }

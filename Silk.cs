@@ -229,7 +229,7 @@ namespace Silk_Client
                 Filter = "CFG files (*.cfg)|*.cfg|All files (*.*)|*.*",
                 DefaultExt = "cfg",
                 AddExtension = true,
-                Title = "Save Config File",
+                Title = "Save Configuration File",
                 RestoreDirectory = true,
                 AutoUpgradeEnabled = false
             };

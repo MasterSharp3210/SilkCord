@@ -7,20 +7,32 @@ namespace Silk_Client
         [STAThread]
         static async Task Main()
         {
-            bool discordOpened = Process.GetProcessesByName("Discord").Length > 0;
-            
-            if (discordOpened) {
-                Console.WriteLine("Connected");
+            Process? discordProcess = null;
 
-                ApplicationConfiguration.Initialize();
-                Application.Run(new Silk());
-            }
-
-            else
+            while (discordProcess == null)
             {
-                Console.WriteLine("No Discord process found.");
-                Console.ReadKey();
+                Process[] processes = Process.GetProcessesByName("Discord");
+
+                if (processes.Length > 0)
+                {
+                    discordProcess = processes[0];
+
+                    Console.WriteLine($"\nDiscord detected: Discord.exe | PID: {discordProcess.Id}");
+                    Console.WriteLine("Press ENTER to continue...");
+
+                    Console.ReadLine();
+
+                    break;
+                }
+
+                Console.WriteLine("No Discord found. Open Discord and try again.");
+                await Task.Delay(3000);
             }
+
+            Console.WriteLine("Connected");
+
+            ApplicationConfiguration.Initialize();
+            Application.Run(new Silk());
         }
     }
 }

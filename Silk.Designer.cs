@@ -71,7 +71,7 @@
             // 
             TitleMirror.AutoSize = true;
             TitleMirror.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            TitleMirror.ForeColor = Color.White;
+            TitleMirror.ForeColor = Color.FromArgb(165, 20, 180);
             TitleMirror.Location = new Point(11, 11);
             TitleMirror.Name = "TitleMirror";
             TitleMirror.Size = new Size(89, 18);
@@ -84,7 +84,7 @@
             MinimizeButton.FlatAppearance.BorderSize = 0;
             MinimizeButton.FlatStyle = FlatStyle.Flat;
             MinimizeButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            MinimizeButton.ForeColor = Color.White;
+            MinimizeButton.ForeColor = Color.FromArgb(165, 20, 180);
             MinimizeButton.Location = new Point(727, 0);
             MinimizeButton.Name = "MinimizeButton";
             MinimizeButton.Size = new Size(40, 40);
@@ -99,7 +99,7 @@
             CloseButton.FlatAppearance.BorderSize = 0;
             CloseButton.FlatStyle = FlatStyle.Flat;
             CloseButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            CloseButton.ForeColor = Color.White;
+            CloseButton.ForeColor = Color.FromArgb(165, 20, 180);
             CloseButton.Location = new Point(764, 0);
             CloseButton.Name = "CloseButton";
             CloseButton.Size = new Size(40, 40);
@@ -113,7 +113,7 @@
             ApplicationLabel.AutoSize = true;
             ApplicationLabel.BackColor = Color.Transparent;
             ApplicationLabel.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ApplicationLabel.ForeColor = Color.WhiteSmoke;
+            ApplicationLabel.ForeColor = Color.FromArgb(165, 20, 180);
             ApplicationLabel.Location = new Point(12, 60);
             ApplicationLabel.Name = "ApplicationLabel";
             ApplicationLabel.Size = new Size(156, 30);
@@ -139,7 +139,7 @@
             DetailsLabel.AutoSize = true;
             DetailsLabel.BackColor = Color.Transparent;
             DetailsLabel.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            DetailsLabel.ForeColor = Color.WhiteSmoke;
+            DetailsLabel.ForeColor = Color.FromArgb(165, 20, 180);
             DetailsLabel.Location = new Point(81, 122);
             DetailsLabel.Name = "DetailsLabel";
             DetailsLabel.Size = new Size(87, 30);
@@ -158,7 +158,7 @@
             StateLabel.AutoSize = true;
             StateLabel.BackColor = Color.Transparent;
             StateLabel.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            StateLabel.ForeColor = Color.WhiteSmoke;
+            StateLabel.ForeColor = Color.FromArgb(165, 20, 180);
             StateLabel.Location = new Point(98, 185);
             StateLabel.Name = "StateLabel";
             StateLabel.Size = new Size(70, 30);
@@ -179,7 +179,7 @@
             ActivityTypeLabel.AutoSize = true;
             ActivityTypeLabel.BackColor = Color.Transparent;
             ActivityTypeLabel.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ActivityTypeLabel.ForeColor = Color.WhiteSmoke;
+            ActivityTypeLabel.ForeColor = Color.FromArgb(165, 20, 180);
             ActivityTypeLabel.Location = new Point(401, 248);
             ActivityTypeLabel.Name = "ActivityTypeLabel";
             ActivityTypeLabel.Size = new Size(141, 30);
@@ -191,7 +191,7 @@
             ElapsedTimeLabel.AutoSize = true;
             ElapsedTimeLabel.BackColor = Color.Transparent;
             ElapsedTimeLabel.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ElapsedTimeLabel.ForeColor = Color.WhiteSmoke;
+            ElapsedTimeLabel.ForeColor = Color.FromArgb(165, 20, 180);
             ElapsedTimeLabel.Location = new Point(98, 248);
             ElapsedTimeLabel.Name = "ElapsedTimeLabel";
             ElapsedTimeLabel.Size = new Size(191, 30);
@@ -214,7 +214,7 @@
             Image1Label.AutoSize = true;
             Image1Label.BackColor = Color.Transparent;
             Image1Label.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Image1Label.ForeColor = Color.WhiteSmoke;
+            Image1Label.ForeColor = Color.FromArgb(165, 20, 180);
             Image1Label.Location = new Point(12, 323);
             Image1Label.Name = "Image1Label";
             Image1Label.Size = new Size(172, 30);
@@ -240,7 +240,7 @@
             Image2Label.AutoSize = true;
             Image2Label.BackColor = Color.Transparent;
             Image2Label.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Image2Label.ForeColor = Color.WhiteSmoke;
+            Image2Label.ForeColor = Color.FromArgb(165, 20, 180);
             Image2Label.Location = new Point(406, 325);
             Image2Label.Name = "Image2Label";
             Image2Label.Size = new Size(171, 30);
@@ -252,7 +252,7 @@
             Image1Text.AutoSize = true;
             Image1Text.BackColor = Color.Transparent;
             Image1Text.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Image1Text.ForeColor = Color.WhiteSmoke;
+            Image1Text.ForeColor = Color.FromArgb(165, 20, 180);
             Image1Text.Location = new Point(7, 393);
             Image1Text.Name = "Image1Text";
             Image1Text.Size = new Size(176, 30);
@@ -278,7 +278,7 @@
             Image2Text.AutoSize = true;
             Image2Text.BackColor = Color.Transparent;
             Image2Text.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Image2Text.ForeColor = Color.WhiteSmoke;
+            Image2Text.ForeColor = Color.FromArgb(165, 20, 180);
             Image2Text.Location = new Point(402, 393);
             Image2Text.Name = "Image2Text";
             Image2Text.Size = new Size(175, 30);
@@ -289,7 +289,7 @@
             // 
             ApplyDiscordRPC.FlatStyle = FlatStyle.Flat;
             ApplyDiscordRPC.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ApplyDiscordRPC.ForeColor = Color.White;
+            ApplyDiscordRPC.ForeColor = Color.FromArgb(165, 20, 180);
             ApplyDiscordRPC.Location = new Point(609, 488);
             ApplyDiscordRPC.Name = "ApplyDiscordRPC";
             ApplyDiscordRPC.Size = new Size(180, 40);
@@ -302,7 +302,7 @@
             // 
             SaveSettingButton.FlatStyle = FlatStyle.Flat;
             SaveSettingButton.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SaveSettingButton.ForeColor = Color.White;
+            SaveSettingButton.ForeColor = Color.FromArgb(165, 20, 180);
             SaveSettingButton.Location = new Point(423, 488);
             SaveSettingButton.Name = "SaveSettingButton";
             SaveSettingButton.Size = new Size(180, 40);
@@ -315,7 +315,7 @@
             // 
             LoadConfigButton.FlatStyle = FlatStyle.Flat;
             LoadConfigButton.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LoadConfigButton.ForeColor = Color.White;
+            LoadConfigButton.ForeColor = Color.FromArgb(165, 20, 180);
             LoadConfigButton.Location = new Point(12, 488);
             LoadConfigButton.Name = "LoadConfigButton";
             LoadConfigButton.Size = new Size(180, 40);

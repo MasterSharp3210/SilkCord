@@ -10,6 +10,29 @@ namespace Silk_Client
 {
     public partial class Silk : Form
     {
+        [StructLayout(LayoutKind.Sequential)]
+        public struct AccentPolicy
+        {
+            public int AccentState; 
+            public int AccentFlags; 
+            public int GradientColor; 
+            public int AnimationId;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct WindowCompositionAttributeData
+        {
+            public int Attribute;  
+            public IntPtr Data;       
+            public int SizeOfData;    
+        }
+
+        [DllImport("user32.dll")]
+        internal static extern int SetWindowCompositionAttribute(
+            IntPtr hwnd,
+            ref WindowCompositionAttributeData data
+        );
+
         private DiscordRpcClient? discordClient;
         private bool isRpcStarted = false;
 
@@ -73,6 +96,32 @@ namespace Silk_Client
             TitlePanel.MouseDown += TitlePanel_MouseDown;
 
             ApplyDiscordRPC.Text = "Start";
+
+            this.Opacity = 0.95;
+            this.Load += (s, e) => Blur();
+        }
+
+        private void Blur()
+        {
+            var accent = new AccentPolicy
+            {
+                AccentState = 3
+            };
+
+            var accentStructSize = Marshal.SizeOf(accent);
+            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
+            Marshal.StructureToPtr(accent, accentPtr, false);
+
+            var data = new WindowCompositionAttributeData
+            {
+                Attribute = 19,             
+                SizeOfData = accentStructSize,
+                Data = accentPtr
+            };
+
+            SetWindowCompositionAttribute(this.Handle, ref data);
+
+            Marshal.FreeHGlobal(accentPtr);
         }
 
         private void TitlePanel_MouseDown(object sender, MouseEventArgs e)
